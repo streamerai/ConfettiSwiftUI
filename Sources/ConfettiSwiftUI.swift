@@ -184,7 +184,7 @@ struct ConfettiView: View{
     
     func getSpinDirection() -> CGFloat {
         let spinDirections:[CGFloat] = [-1.0, 1.0]
-        return spinDirections.randomElement()!
+        return spinDirections.randomElement()! / 2
     }
     
     func getRandomExplosionTimeVariation() -> CGFloat {
@@ -208,7 +208,7 @@ struct ConfettiView: View{
     }
 
     var body: some View{
-        ConfettiAnimationView(shape:getShape(), color:getColor(), spinDirX: getSpinDirection(), spinDirZ: getSpinDirection())
+        ConfettiAnimationView(shape:getShape(), color:getColor(), spinDirX: 0, spinDirZ: getSpinDirection())
             .offset(x: location.x, y: location.y)
             .opacity(opacity)
             .onAppear(){
@@ -255,7 +255,7 @@ struct ConfettiAnimationView: View {
     @State var xSpeed:Double = Double.random(in: 0.501...2.201)
 
     @State var zSpeed = Double.random(in: 0.501...2.201)
-    @State var anchor = CGFloat.random(in: 0...1).rounded()
+    @State var anchor = 0.5 // CGFloat.random(in: 0...1).rounded()
     
     var body: some View {
         shape
@@ -288,7 +288,7 @@ class ConfettiConfig: ObservableObject {
         self.repetitions = repetitions
         self.repetitionInterval = repetitionInterval
         self.explosionAnimationDuration = Double(radius / 1300)
-        self.rainAnimationDuration = Double((rainHeight + radius) / 200)
+        self.rainAnimationDuration = Double((rainHeight + radius) / 400)
     }
     
     @Published var num:Int
